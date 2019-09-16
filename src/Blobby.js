@@ -20,10 +20,11 @@ export class Blobby {
 
   updateMouse(state) {
     this.acc = [0, 0];
-    if (state.left) this.acc[0] += -0.1;
-    if (state.right) this.acc[0] += 0.1;
-    if (state.up) this.acc[1] += -0.1;
-    if (state.down) this.acc[1] += 0.1;
+    const accAmt = 0.1;
+    if (state.left) this.acc[0] += -accAmt;
+    if (state.right) this.acc[0] += accAmt;
+    if (state.up) this.acc[1] += -accAmt;
+    if (state.down) this.acc[1] += accAmt;
     this.updatePos();
   }
 
