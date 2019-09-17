@@ -31,24 +31,16 @@ export class Blobby {
     this.vel = [this.vel[0] + this.acc[0], this.vel[1] + this.acc[1]];
     this.pos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
 
-    if (this.pos[0] < 0) {
-      this.pos[0] = -this.pos[0];
-      this.vel[0] = -this.vel[0];
-    }
+    this.bounce(0, 0, (p, c) => p < c);
+    this.bounce(0, this.canvas.width, (p, c) => p > c);
+    this.bounce(1, 0, (p, c) => p < c);
+    this.bounce(1, this.canvas.height, (p, c) => p > c);
+  }
 
-    if (this.pos[0] > this.canvas.width) {
-      this.pos[0] = this.canvas.width * 2 - this.pos[0];
-      this.vel[0] = -this.vel[0];
-    }
-
-    if (this.pos[1] < 0) {
-      this.pos[1] = -this.pos[1];
-      this.vel[1] = -this.vel[1];
-    }
-
-    if (this.pos[1] > this.canvas.height) {
-      this.pos[1] = this.canvas.height * 2 - this.pos[1];
-      this.vel[1] = -this.vel[1];
+  bounce(i, cutoff, compare) {
+    if (compare(this.pos[i], cutoff)) {
+      this.pos[i] = cutoff * 2 - this.pos[i];
+      this.vel[i] = -this.vel[i];
     }
   }
 
