@@ -14,7 +14,7 @@ let state = {
   down: false
 };
 
-function update() {
+function update(progress) {
   blobby.updateMouse(state);
 }
 
@@ -23,12 +23,16 @@ function draw() {
   blobby.draw();
 }
 
-function loop() {
-  update();
+function loop(timestamp) {
+  var progress = timestamp - lastRender;
+
+  update(progress);
   draw();
+
+  lastRender = timestamp;
   window.requestAnimationFrame(loop);
 }
-
+let lastRender = 0;
 window.requestAnimationFrame(loop);
 
 function keydown(event) {
