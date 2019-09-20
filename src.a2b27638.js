@@ -28852,6 +28852,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var accAmt = 0.1;
+
 var Blobby =
 /*#__PURE__*/
 function () {
@@ -28877,11 +28879,17 @@ function () {
     key: "updateMouse",
     value: function updateMouse(state) {
       this.acc = [0, 0];
-      var accAmt = 0.1;
       if (state.left) this.acc[0] += -accAmt;
       if (state.right) this.acc[0] += accAmt;
       if (state.up) this.acc[1] += -accAmt;
       if (state.down) this.acc[1] += accAmt;
+      this.updatePos();
+    }
+  }, {
+    key: "mouseClick",
+    value: function mouseClick(pos) {
+      this.acc[0] = (pos[0] - this.pos[0]) * accAmt * 0.1;
+      this.acc[1] = (pos[1] - this.pos[1]) * accAmt * 0.1;
       this.updatePos();
     }
   }, {
@@ -28951,7 +28959,7 @@ var state = {
   down: false
 };
 
-function update() {
+function update(progress) {
   blobby.updateMouse(state);
 }
 
@@ -28960,12 +28968,15 @@ function draw() {
   blobby.draw();
 }
 
-function loop() {
-  update();
+function loop(timestamp) {
+  var progress = timestamp - lastRender;
+  update(progress);
   draw();
+  lastRender = timestamp;
   window.requestAnimationFrame(loop);
 }
 
+var lastRender = 0;
 window.requestAnimationFrame(loop);
 
 function keydown(event) {
@@ -28982,8 +28993,17 @@ function keyup(event) {
   if (event.code === "ArrowDown") state.down = false;
 }
 
+function getPosition(event) {
+  var x = event.x;
+  var y = event.y;
+  x -= canvas.offsetLeft;
+  y -= canvas.offsetTop;
+  blobby.mouseClick([x, y]);
+}
+
 window.addEventListener("keydown", keydown, false);
 window.addEventListener("keyup", keyup, false);
+canvas.addEventListener("mousedown", getPosition, false);
 },{"./styles.css":"src/styles.css","./Blobby":"src/Blobby.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29012,7 +29032,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54940" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51840" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
