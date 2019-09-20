@@ -28947,7 +28947,7 @@ var _Blobby = require("./Blobby");
 
 var version = document.getElementById("version");
 exports.version = version;
-version.innerHTML = "1.0";
+version.innerHTML = "1.1";
 var canvas = document.getElementById("app");
 exports.canvas = canvas;
 var ctx = canvas.getContext("2d");
@@ -28996,7 +28996,7 @@ function keyup(event) {
   if (event.code === "ArrowDown") state.down = false;
 }
 
-function getPosition(event) {
+function mouseClick(event) {
   var x = event.x;
   var y = event.y;
   x -= canvas.offsetLeft;
@@ -29004,9 +29004,19 @@ function getPosition(event) {
   blobby.mouseClick([x, y]);
 }
 
+function touchStart(event) {
+  event.preventDefault();
+  var x = event.changedTouches[0].clientX;
+  var y = event.changedTouches[0].clientY;
+  x -= canvas.offsetLeft;
+  y -= canvas.offsetTop;
+  blobby.mouseClick([x, y]);
+}
+
 window.addEventListener("keydown", keydown, false);
 window.addEventListener("keyup", keyup, false);
-canvas.addEventListener("mousedown", getPosition, false);
+canvas.addEventListener("mousedown", mouseClick, false);
+canvas.addEventListener("touchstart", touchStart, false);
 },{"./styles.css":"src/styles.css","./Blobby":"src/Blobby.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -29035,7 +29045,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56354" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57211" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
