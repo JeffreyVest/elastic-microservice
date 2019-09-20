@@ -28939,12 +28939,15 @@ exports.Blobby = Blobby;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ctx = exports.canvas = void 0;
+exports.ctx = exports.canvas = exports.version = void 0;
 
 require("./styles.css");
 
 var _Blobby = require("./Blobby");
 
+var version = document.getElementById("version");
+exports.version = version;
+version.innerHTML = "1.0";
 var canvas = document.getElementById("app");
 exports.canvas = canvas;
 var ctx = canvas.getContext("2d");
@@ -29032,7 +29035,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51840" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56354" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
