@@ -1,6 +1,8 @@
 import { gaussianRand } from "./GuassRand";
 import { scaleAcc } from "./Scales";
 
+const accAmt = 0.1;
+
 export class Blobby {
   constructor(size, canvas, ctx, fillStyle) {
     this.canvas = canvas;
@@ -19,11 +21,16 @@ export class Blobby {
 
   updateMouse(state) {
     this.acc = [0, 0];
-    const accAmt = 0.1;
     if (state.left) this.acc[0] += -accAmt;
     if (state.right) this.acc[0] += accAmt;
     if (state.up) this.acc[1] += -accAmt;
     if (state.down) this.acc[1] += accAmt;
+    this.updatePos();
+  }
+
+  mouseClick(pos) {
+    this.acc[0] = (pos[0] - this.pos[0]) * accAmt * 0.1;
+    this.acc[1] = (pos[1] - this.pos[1]) * accAmt * 0.1;
     this.updatePos();
   }
 

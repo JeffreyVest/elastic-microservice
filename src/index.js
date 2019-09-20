@@ -1,6 +1,8 @@
 import "./styles.css";
 import { Blobby } from "./Blobby";
 
+export const version = document.getElementById("version");
+version.innerHTML = "1.1";
 export const canvas = document.getElementById("app");
 export const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -48,5 +50,25 @@ function keyup(event) {
   if (event.code === "ArrowDown") state.down = false;
 }
 
+function mouseClick(event)
+{
+  var x = event.x;
+  var y = event.y;
+  x -= canvas.offsetLeft;
+  y -= canvas.offsetTop;
+  blobby.mouseClick([x, y]);
+}
+
+function touchStart(event) {
+  event.preventDefault();
+  var x = event.changedTouches[0].clientX;
+  var y = event.changedTouches[0].clientY;
+  x -= canvas.offsetLeft;
+  y -= canvas.offsetTop;
+  blobby.mouseClick([x, y]);
+}
+
 window.addEventListener("keydown", keydown, false);
 window.addEventListener("keyup", keyup, false);
+canvas.addEventListener("mousedown", mouseClick, false);
+canvas.addEventListener("touchstart", touchStart, false);

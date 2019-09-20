@@ -6,7 +6,8 @@
   "scripts": {
     "start": "parcel index.html --open",
     "build": "parcel build index.html",
-    "deploy": "parcel build index.html --public-url /elastic-microservice && gh-pages -d dist"
+    "predeploy": "parcel build index.html --public-url /elastic-microservice",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "d3": "5.12.0",
