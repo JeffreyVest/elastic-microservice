@@ -2,7 +2,7 @@ import "./styles.css";
 import { Blobby } from "./Blobby";
 
 export const version = document.getElementById("version");
-version.innerHTML = "1.1";
+version.innerHTML = "1.2";
 export const canvas = document.getElementById("app");
 export const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
